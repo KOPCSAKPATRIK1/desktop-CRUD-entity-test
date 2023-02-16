@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace test.tables;
+namespace test.Models;
 
 public partial class WebshopContext : DbContext
 {
@@ -27,6 +27,8 @@ public partial class WebshopContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
+    public virtual DbSet<Release> Releases { get; set; }
+
     public virtual DbSet<ShippingMethod> ShippingMethods { get; set; }
 
     public virtual DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
@@ -38,8 +40,7 @@ public partial class WebshopContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySQL("server=localhost;database=webshop;pwd=;uid=root");
+        => optionsBuilder.UseMySQL("server=localhost;uid=root;pwd=;database=webshop");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -223,9 +224,18 @@ public partial class WebshopContext : DbContext
             entity.Property(e => e.Desc)
                 .HasMaxLength(255)
                 .HasColumnName("desc");
-            entity.Property(e => e.ImageUrl)
+            entity.Property(e => e.ImageUrl1)
                 .HasMaxLength(255)
-                .HasColumnName("imageUrl");
+                .HasColumnName("imageUrl1");
+            entity.Property(e => e.ImageUrl2)
+                .HasMaxLength(255)
+                .HasColumnName("imageUrl2");
+            entity.Property(e => e.ImageUrl3)
+                .HasMaxLength(255)
+                .HasColumnName("imageUrl3");
+            entity.Property(e => e.ImageUrl4)
+                .HasMaxLength(255)
+                .HasColumnName("imageUrl4");
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .HasColumnName("name");
@@ -259,6 +269,38 @@ public partial class WebshopContext : DbContext
                             .HasColumnType("int(11)")
                             .HasColumnName("sizeId");
                     });
+        });
+
+        modelBuilder.Entity<Release>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("release");
+
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.Desc)
+                .HasMaxLength(255)
+                .HasColumnName("desc");
+            entity.Property(e => e.ImageUrl1)
+                .HasMaxLength(255)
+                .HasColumnName("imageUrl1");
+            entity.Property(e => e.ImageUrl2)
+                .HasMaxLength(255)
+                .HasColumnName("imageUrl2");
+            entity.Property(e => e.ImageUrl3)
+                .HasMaxLength(255)
+                .HasColumnName("imageUrl3");
+            entity.Property(e => e.ImageUrl4)
+                .HasMaxLength(255)
+                .HasColumnName("imageUrl4");
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .HasColumnName("name");
+            entity.Property(e => e.ReleaseData)
+                .HasColumnType("datetime")
+                .HasColumnName("releaseData");
         });
 
         modelBuilder.Entity<ShippingMethod>(entity =>

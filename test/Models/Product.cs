@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace test.tables;
+namespace test.Models;
 
 public partial class Product
 {
@@ -11,11 +11,17 @@ public partial class Product
 
     public string Desc { get; set; } = null!;
 
-    public string ImageUrl { get; set; } = null!;
-
     public int Price { get; set; }
 
     public int? CategoryId { get; set; }
+
+    public string ImageUrl1 { get; set; } = null!;
+
+    public string ImageUrl2 { get; set; } = null!;
+
+    public string ImageUrl3 { get; set; } = null!;
+
+    public string ImageUrl4 { get; set; } = null!;
 
     public virtual Category? Category { get; set; }
 

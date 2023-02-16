@@ -1,12 +1,11 @@
 ﻿using test.Interfaces;
-using test.tables;
+using test.Models;
 
 namespace test;
 
 public class Repository : IRepository
 {
     private readonly WebshopContext _context;
-    private tables.WebshopContext context;
 
     public Repository(WebshopContext context) 
     { 
@@ -21,48 +20,44 @@ public class Repository : IRepository
 
     public Product[] GetProducts()
     {
-        throw new NotImplementedException();
+        var productsQry = _context.Products.OrderBy(p => p.Id);
+
+        return productsQry.ToArray();
     }
 
-    public int UpdateProduct(int id, string? newName, string? newDesc, string? newImageUrl)
+    public int UpdateProduct(Product changeProduct)
     {
-        var meglevo = _context.Products.SingleOrDefault(p => p.Id == id);
-        if (meglevo == null)
-        {
-            return 0;
-        }
-        if (newName == null)
+        var meglevo = _context.Products.SingleOrDefault(p => p.Id == changeProduct.Id);
+        if (changeProduct.Name == null) 
         {
             meglevo.Name = meglevo.Name;
         }
         else
         {
-            meglevo.Name = newName;
+            meglevo.Name = changeProduct.Name;
         }
-        if (newDesc == null)
+        if (changeProduct.Price == null)
+        {
+            meglevo.Price = meglevo.Price;
+        }
+        else
+        {
+            meglevo.Price = changeProduct.Price;
+        }
+        if (changeProduct.Desc == null)
         {
             meglevo.Desc = meglevo.Desc;
         }
         else
         {
-            meglevo.Desc = newDesc;
+            meglevo.Desc = changeProduct.Desc;
         }
-        if (newImageUrl == null)
-        {
-            meglevo.ImageUrl = meglevo.ImageUrl;
-        }
-        else
-        {
-            meglevo.ImageUrl = newImageUrl;
-        }
-        meglevo.Desc = newDesc;
-        meglevo.ImageUrl = newImageUrl;
         return _context.SaveChanges();
 
 
     }
 
-    Product[] IRepository.GetProducts()
+    public void DeleteProduct()
     {
         throw new NotImplementedException();
     }

@@ -1,40 +1,120 @@
 ﻿using test;
 using test.Interfaces;
-using test.Mock;
-using test.tables;
-
+using test.Models;
 
 WebshopContext _context = new WebshopContext();
 IRepository repository = new Repository(_context);
+/*
+Console.WriteLine("Add meg a cipo nevet");
+var  CipoNeve = Ellenorzes(Console.ReadLine());
 
-Console.WriteLine("add meg a cipo nvet");
-var  ujCipoNeve = Console.ReadLine();
+
 
 Console.WriteLine("add meg a cipo leirasat");
-var ujCipoDesc = Console.ReadLine(); 
+var CipoDesc = Ellenorzes(Console.ReadLine());
 
-Console.WriteLine("add meg a cipo imgurljet");
-var ujCipoImg = Console.ReadLine();
+int CipoAr;
+do
+{
+    Console.WriteLine("add meg a cipo arat");
+    if (int.TryParse(Console.ReadLine(), out CipoAr) && CipoAr > 0)
+    {
+        break;
+    }
+    Console.WriteLine("HIBA a szamnak es 0-nal nagyobbnak kell lennie");
+}
+while (true);
 
-Console.WriteLine("add meg a cipo arat");
-var ujCipoAr = Console.ReadLine();
 
-//Product newCipo = ;
+Console.WriteLine("add meg a cipo 1 imgurljet");
+var CipoImgUrl1 = Ellenorzes(Console.ReadLine());
 
-//repository.CreateProduct(newCipo);
+Console.WriteLine("add meg a cipo 2 imgurljet");
+var CipoImgUrl2 = Ellenorzes(Console.ReadLine());
 
-//var dp = new DisplayProduct(new MockRepository());
+Console.WriteLine("add meg a cipo 3 imgurljet");
+var CipoImgUrl3 = Ellenorzes(Console.ReadLine());
+
+Console.WriteLine("add meg a cipo 4 imgurljet");
+var CipoImgUrl4 = Ellenorzes(Console.ReadLine());
+
+Product newCipo = new Product {
+    Name = CipoNeve,
+    Desc = CipoDesc,
+    Price = CipoAr,
+    ImageUrl1 = CipoImgUrl1,
+    ImageUrl2 = CipoImgUrl2,
+    ImageUrl3 = CipoImgUrl3,
+    ImageUrl4 = CipoImgUrl4
+};
+
+repository.CreateProduct(newCipo);
+*/
+
+foreach (var product in repository.GetProducts())
+{
+    Console.WriteLine($"Id: {product.Id}\nNev: {product.Name}\nLeiras: {product.Desc}\nAr: {product.Price}");
+}
+
+
+
+
 
 Console.WriteLine("melyik cipot szeretned valtoztatni");
-var id = int.Parse(Console.ReadLine());
+int id;
+do
+{
+    Console.WriteLine("add meg a cipo arat");
+    if (int.TryParse(Console.ReadLine(), out id) && id > 0)
+    {
+        break;
+    }
+    Console.WriteLine("HIBA a szamnak es 0-nal nagyobbnak kell lennie");
+}
+while (true);
 
 Console.WriteLine("add meg a cipo nevet");
-var nevet = Console.ReadLine();
+var nev = Ellenorzes(Console.ReadLine());
+
 
 Console.WriteLine("add meg a cipo desc");
-var desc = Console.ReadLine();
+var desc = Ellenorzes(Console.ReadLine());
 
-Console.WriteLine("add meg a cipo img");
-var imgUrl = Console.ReadLine();
+int ar;
+do
+{
+    Console.WriteLine("add meg a cipo arat");
+    if (int.TryParse(Console.ReadLine(), out ar) && ar > 0)
+    {
+        break;
+    }
+    Console.WriteLine("HIBA a szamnak es 0-nal nagyobbnak kell lennie");
+}
+while (true);
 
-repository.UpdateProduct(id, nevet, desc, imgUrl);
+Product changeCipo = new Product
+{
+    Id = id,
+    Name = nev,
+    Desc = desc,
+    Price = ar
+};
+
+repository.UpdateProduct(changeCipo);
+
+foreach (var product in repository.GetProducts())
+{
+    Console.WriteLine($"Id: {product.Id}\nNev: {product.Name}\nLeiras: {product.Desc}\nAr: {product.Price}");
+}
+
+
+string Ellenorzes(string? szoveg)
+{
+    while (string.IsNullOrEmpty(szoveg))
+    {
+        Console.WriteLine("HIBA a mezo nem lehet ures");
+        szoveg = Console.ReadLine();
+    }
+
+    return szoveg;
+}
