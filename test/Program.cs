@@ -4,7 +4,7 @@ using test.Models;
 
 WebshopContext _context = new WebshopContext();
 IRepository repository = new Repository(_context);
-/*
+
 Console.WriteLine("Add meg a cipo nevet");
 var  CipoNeve = Ellenorzes(Console.ReadLine());
 
@@ -49,11 +49,11 @@ Product newCipo = new Product {
 };
 
 repository.CreateProduct(newCipo);
-*/
+
 
 foreach (var product in repository.GetProducts())
 {
-    Console.WriteLine($"Id: {product.Id}\nNev: {product.Name}\nLeiras: {product.Desc}\nAr: {product.Price}");
+    Console.WriteLine($"Id: {product.Id}\nNev: {product.Name}\nLeiras: {product.Desc}\nAr: {product.Price}\n");
 }
 
 
@@ -100,11 +100,21 @@ Product changeCipo = new Product
     Price = ar
 };
 
-repository.UpdateProduct(changeCipo);
+repository.UpdateProduct(changeCipo);*/
 
 foreach (var product in repository.GetProducts())
 {
-    Console.WriteLine($"Id: {product.Id}\nNev: {product.Name}\nLeiras: {product.Desc}\nAr: {product.Price}");
+    Console.WriteLine($"Id: {product.Id}\nNev: {product.Name}\nLeiras: {product.Desc}\nAr: {product.Price}\n");
+}
+
+Console.WriteLine("add meg a torlendo id-t");
+var productId = int.Parse(Console.ReadLine());
+
+repository.DeleteProduct(productId);
+
+foreach (var product in repository.GetProducts())
+{
+    Console.WriteLine($"Id: {product.Id}\nNev: {product.Name}\nLeiras: {product.Desc}\nAr: {product.Price}\n");
 }
 
 

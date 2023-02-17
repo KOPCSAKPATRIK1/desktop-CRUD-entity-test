@@ -57,8 +57,10 @@ public class Repository : IRepository
 
     }
 
-    public void DeleteProduct()
+    public int DeleteProduct(int? id)
     {
-        throw new NotImplementedException();
+        var propduct = _context.Products.SingleOrDefault(p => p.Id == id);
+        _context.Remove(propduct);
+        return _context.SaveChanges();
     }
 }

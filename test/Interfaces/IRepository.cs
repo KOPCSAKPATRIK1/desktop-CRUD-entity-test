@@ -10,7 +10,7 @@ namespace test.Interfaces
         int UpdateProduct(Product product);
         Product[] GetProducts();
 
-        void DeleteProduct();
+        int DeleteProduct(int? id);
 
 
     }
